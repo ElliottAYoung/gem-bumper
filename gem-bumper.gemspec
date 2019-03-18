@@ -1,36 +1,21 @@
+# -*- encoding: utf-8 -*-
+require File.expand_path('../lib/gem/bumper/version', __FILE__)
 
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "gem/bumper/version"
+Gem::Specification.new do |gem|
+  gem.authors       = ["Elliott Young"]
+  gem.email         = ["elliott.a.young@gmail.com"]
+  gem.description   = ""
+  gem.summary       = ""
+  gem.homepage      = ""
 
-Gem::Specification.new do |spec|
-  spec.name          = "gem-bumper"
-  spec.version       = Gem::Bumper::VERSION
-  spec.authors       = ["ElliottAYoung"]
-  spec.email         = ["elliott.a.young@gmail.com"]
+  gem.files         = `git ls-files`.split($\)
+  gem.executables   = ["bump"]
+  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+  gem.name          = "gem-bumper"
+  gem.require_paths = ["lib"]
+  gem.version       = Gem::Bumper::VERSION
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
-  spec.license       = "MIT"
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
-
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
-
-  spec.add_development_dependency "bundler", "~> 1.16"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  gem.add_development_dependency "pry"
+  gem.add_development_dependency "rb-readline"
+  gem.add_development_dependency "rspec"
 end

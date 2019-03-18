@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require "gem/bumper"
+
+gem_name = ARGV[0]
+version = ARGV[1..-1].join(" ")
+
+
+
+Gem::Bumper.update(gem_name, version)
