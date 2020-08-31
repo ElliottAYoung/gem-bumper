@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require "gem/bumper"
+
+gem_name = ARGV[0]
+version = ARGV[1..-1].join(" ")
+repos = Dir.entries('./').select do |entry|
+  File.directory?(File.join('./', entry)) && !(entry == '.' || entry == '..' || entry[0] == '.')
+end
+
+repos.each do |repo|
+  Dir.chdir("./#{repo}")
+
+  Gem::Bumper.update(gem_name, version)
+
+  # Run Bundle install
+  puts "Bundling with #{gem_name} #{version}..."
+  success = system('bundle install')
+
+  if success
+    # Add Gemfile & lock
+    puts "Adding to Git..."
+    system('git add Gemfile && git add Gemfile.lock') rescue puts "Adding to Git Failed..."
+
+    # Commit
+    puts "Committing..."
+    system("git commit -m 'bump: #{gem_name} to #{version}'") rescue puts "Committing Failed..."
+  end
+
+  Dir.chdir("..")
+end
