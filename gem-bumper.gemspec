@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/ElliottAYoung/gem-bumper"
 
   gem.files         = `git ls-files`.split($\)
-  gem.executables   = ["bump"]
+  gem.executables   = ["bump", "bump_all"]
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "gem-bumper"
   gem.require_paths = ["lib"]
